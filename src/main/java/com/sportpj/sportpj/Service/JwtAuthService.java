@@ -19,7 +19,7 @@ public class JwtAuthService {
     private final String SECRET = "SportPjSecretKey2026!@#DayLaChuoiBaoMatCucManh";
     
     private Key key = Keys.hmacShaKeyFor(SECRET.getBytes());
-    private long expire = 1000 * 60 * 60; 
+    private long expire = 1000 * 60 * 60*60; 
 
     public String generateToken(String email, long userId) {
         return Jwts.builder()

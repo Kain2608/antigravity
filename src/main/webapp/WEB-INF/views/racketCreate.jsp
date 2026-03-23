@@ -71,7 +71,7 @@
       </div>
       <div class="inner-group">
         <label class="inner-label">Trạng thái</label>
-        <select name="status">
+        <select name="status" id="status">
           <option value="active">Hoạt động</option>
           <option value="inactive">Dừng</option>
         </select>

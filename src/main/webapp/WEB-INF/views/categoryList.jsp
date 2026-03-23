@@ -100,7 +100,7 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                 </td>
                 <td>
                   <button><a href="/admin/category/edit/${item.id}">Sửa</a></button>
-                  <button><a href="/admin/category/edit/${item.id}">Xóa</a></button>
+                  <button><a href="/admin/category/delete/${item.id}" onclick="return confirm('Bạn có muốn xóa danh mục này không')">Xóa</a></button>
                 </td>
               </tr>
               </c:forEach>

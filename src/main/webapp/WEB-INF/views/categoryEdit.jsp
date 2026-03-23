@@ -5,7 +5,7 @@
 <html lang="vi">
 
 <head>
-  <title>Tạo danh mục</title>
+  <title>Sửa danh mục</title>
   <%@ include file="/WEB-INF/views/layout/default.jsp" %>
 </head>
 
@@ -16,28 +16,35 @@
 <div class="sider-overlay"></div>
 
 <main class="main">
-  <h1 class="box-title">Tạo danh mục</h1>
+  <h1 class="box-title">Sửa danh mục</h1>
 
   <div class="section-8">
-    <form id="category-create-form" method="post" action="/admin/category/create" enctype="multipart/form-data">
+    <form id="category-edit-form" method="post" action="/admin/category/edit/${categoryDetail.id}" enctype="multipart/form-data">
 
       <div class="inner-group">
         <label class="inner-label" for="name">Tên danh mục</label>
-        <input type="text" name="name" id="name">
+        <input type="text" name="name" id="name" value="${categoryDetail.name}">
       </div>
 
       <div class="inner-group">
         <label class="inner-label" for="status">Trạng thái</label>
         <select name="status" id="status">
-          <option value="active">Hoạt động</option>
-          <option value="inactive">Dừng</option>
+          <option value="active"
+            <c:if test="${categoryDetail != null and categoryDetail.status eq 'active'}">selected</c:if>>
+            Hoạt động
+          </option>
+
+          <option value="inactive"
+            <c:if test="${categoryDetail != null and categoryDetail.status eq 'inactive'}">selected</c:if>>
+            Dừng
+          </option>
         </select>
       </div>
 
       <div class="inner-group inner-two-col">
         <label class="inner-label" for="avatar">Ảnh</label>
         <div class="inner-upload-image">
-          <input type="file" id="avatar" name="avatar" filepond-image accept="image/*">
+          <input type="file" id="avatar" name="avatar" image-default=${categoryDetail.avatar} filepond-image accept="image/*">
         </div>
       </div>
 
