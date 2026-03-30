@@ -17,11 +17,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sportpj.sportpj.Model.CategoryModel;
+import com.sportpj.sportpj.Model.UserModel;
 import com.sportpj.sportpj.Repository.CategoryRepository;
+import com.sportpj.sportpj.Repository.UserRepository;
 import com.sportpj.sportpj.Service.CategoryService;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -32,14 +34,35 @@ public class CategoryController {
   CategoryService categoryService;
   @Autowired
   CategoryRepository categoryRepository;
+  @Autowired
+  UserRepository userRepository;
   @InitBinder
   public void initBinder(WebDataBinder binder){
     binder.setDisallowedFields("avatar");
   }
   @GetMapping("/list")
-  public String getCategoryPage(Model model, CategoryModel categoryModel){
-    List<CategoryModel> categoryList = categoryRepository.findByStatus("active");
+  public String getCategoryPage(Model model, CategoryModel categoryModel,@RequestParam(required=false) String status, @RequestParam(required=false) String createdBy){
+    boolean hasStatus =  (status !=  null && !status.isEmpty());
+    boolean hasCreatedBy = (createdBy != null && !createdBy.isEmpty());
+    List<CategoryModel> categoryList;
+    if (hasStatus && hasCreatedBy) {
+        categoryList = categoryRepository.findByStatusAndCreatedBy(status, createdBy);
+    } else if (hasStatus) {
+        categoryList = categoryRepository.findByStatus(status);
+    } else if (hasCreatedBy) {
+        categoryList = categoryRepository.findByCreatedBy(createdBy);
+    } else {
+        categoryList = categoryRepository.findAll();
+    }
+    List<UserModel> userList = userRepository.findAll();
+    long totalCategory = categoryRepository.count();
+    long totalActive = categoryRepository.countByStatus("active");
+    long totalInActive = categoryRepository.countByStatus("inactive");
     model.addAttribute("categoryList", categoryList);
+    model.addAttribute("userList",userList);
+    model.addAttribute("totalCategory", totalCategory);
+    model.addAttribute("totalActive", totalActive);
+    model.addAttribute("totalInactive", totalInActive);
     return "categoryList";
   }
   @GetMapping("/create")

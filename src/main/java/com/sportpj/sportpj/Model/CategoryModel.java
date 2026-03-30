@@ -5,9 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +23,7 @@ public class CategoryModel {
   private String status;
   private String avatar;
   private String description;
+  private String slug;
   private String createdBy;
   private String updatedBy;
   @CreationTimestamp
@@ -87,6 +86,7 @@ public class CategoryModel {
   public void setAvatar(String avatar) {
     this.avatar = avatar;
   }
+  
   public String getCreatedAtFormatted() {
         if (createdAt == null) return null;
         return createdAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
@@ -95,5 +95,11 @@ public class CategoryModel {
     public String getUpdatedAtFormatted() {
         if (updatedAt == null) return null;
         return updatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
+    public String getSlug() {
+      return slug;
+    }
+    public void setSlug(String slug) {
+      this.slug = slug;
     }
 }

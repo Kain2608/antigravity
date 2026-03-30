@@ -56,6 +56,21 @@
       <a href="/admin/category/list">Quay lại danh sách</a>
     </div>
   </div>
+  <c:if test="${not empty success}">
+  <script>
+    $(document).ready(function(){
+      toastr.success('<c:out value="${success}"/>');
+    });
+  </script>
+  </c:if>
+
+  <c:if test="${not empty error}">
+    <script>
+      $(document).ready(function(){
+        toastr.error('<c:out value="${error}"/>');
+      });
+    </script>
+  </c:if>
 </main>
 
 <%@ include file="/WEB-INF/views/layout/footer.jsp" %>

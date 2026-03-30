@@ -1,5 +1,12 @@
 <header class="header">
-  <div class="inner-logo"><a href="/admin/dashboard"><span>ShopVnb</span><span>Admin</span></a></div>
+  <div class="inner-logo">
+  <a href="/admin">
+    <span class="l-p1">Shop</span>
+    <span class="l-p2">Vnb</span>
+    <div class="l-sep"></div>
+    <span class="l-p3">Admin</span>
+  </a>
+</div>
   <div class="inner-wrap">
     <div class="inner-notify">
       <img src="<c:url value='/images/icon-bell.svg'/>">

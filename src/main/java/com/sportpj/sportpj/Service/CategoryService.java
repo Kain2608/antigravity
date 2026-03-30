@@ -1,5 +1,6 @@
 package com.sportpj.sportpj.Service;
 
+import java.text.Normalizer;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,14 @@ public class CategoryService {
   JwtHelper jwtHelper;
   @Autowired
   UserRepository userRepository;
+  public String toSlug(String input) {
+    String slug = Normalizer.normalize(input, Normalizer.Form.NFD);
+    slug = slug.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+    slug = slug.toLowerCase();
+    slug = slug.replaceAll("[^a-z0-9\\s-]", "");
+    slug = slug.trim().replaceAll("\\s+", "-");
+    return slug;
+}
   public UserModel getCurrentUser(HttpServletRequest request){
     String email = jwtHelper.getEmail(request);
     if(email != null){
@@ -48,11 +57,20 @@ public class CategoryService {
       }
     }
     categoryModel.setStatus("active");
+    String slug = toSlug(categoryModel.getName());
+    int i = 1;
+    while(categoryRepository.existsBySlug(slug)){
+        slug = toSlug(categoryModel.getName()) + "-" + i;
+        i++;
+    }
+    categoryModel.setSlug(slug);
     UserModel user = getCurrentUser(request);
+    
     if(user != null){
       categoryModel.setCreatedBy(user.getFullName());
       categoryModel.setUpdatedBy(user.getFullName()); 
     }
+    
     return categoryRepository.save(categoryModel);
     }
 
@@ -78,7 +96,13 @@ public class CategoryService {
       if(user != null){
         old.setUpdatedBy(user.getFullName()); 
       }
-      
+      String slug = toSlug(categoryModel.getName());
+      int i = 1;
+      while(categoryRepository.existsBySlug(slug) && !old.getSlug().equals(slug)){
+          slug = toSlug(categoryModel.getName()) + "-" + i;
+          i++;
+      }
+      old.setSlug(slug);
       return categoryRepository.save(old);
     }
 

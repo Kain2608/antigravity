@@ -5,6 +5,9 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
   <head>
     <meta charset="UTF-8" />
     <title>Quản lý danh mục</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <link rel="stylesheet" href="<c:url value='/css/style.css'/>" />
     <link
       rel="stylesheet"
@@ -18,26 +21,64 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
     <main class="main">
       <h1 class="box-title">Quản lý danh mục</h1>
+      <!-- STATS ROW -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-icon si-blue">
+            <i class="fa-solid fa-table-cells"></i>
+          </div>
+          <div>
+            <div class="stat-val">${totalCategory}</div>
+            <div class="stat-lbl">Tổng danh mục</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon si-green">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+          <div>
+            <div class="stat-val">${totalActive}</div>
+            <div class="stat-lbl">Đang hoạt động</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon si-red">
+            <i class="fa-solid fa-circle-xmark"></i>
+          </div>
+          <div>
+            <div class="stat-val">${totalInactive}</div>
+            <div class="stat-lbl">Tạm dừng</div>
+          </div>
+        </div>
+        
+          
+        </div>
+      </div>
+      <!-- END STATS ROW -->
       <div class="section-4">
         <div class="inner-wrap">
           <div class="inner-item inner-label">
             <i class="fa-solid fa-filter"></i> Bộ lọc
           </div>
           <div class="inner-item">
-            <select>
+            <select filter-status>
               <option value="">Trạng thái</option>
-              <option value="">Hoạt động</option>
-              <option value="">Tạm dừng</option>
+              <option value="active">Hoạt động</option>
+              <option value="inactive">Tạm dừng</option>
             </select>
           </div>
           <div class="inner-item">
-            <select>
+            <select filter-create-by>
               <option value="">Người tạo</option>
-              <option value="">Lê Văn A</option>
-              <option value="">Lê Văn B</option>
+              <c:forEach var="user" items="${userList}">
+                <option value="${user.fullName}">
+                  ${user.fullName}
+                </option>
+              </c:forEach>
+              
             </select>
           </div>
-          <div class="inner-item inner-reset">
+          <div class="inner-item inner-reset" btn-reset>
             <i class="fa-solid fa-rotate-left"></i> Xóa bộ lọc
           </div>
         </div>
@@ -108,14 +149,24 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
           </table>
         </div>
       </div>
+      <div class="section-7"><span class="inner-label">Trang </span>
+        <select class="inner-pagination">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+        </select>
+      </div>
+      <c:if test="${not empty success}">
+        <script>
+          toastr.success("${success}");
+        </script>
+      </c:if>
+      <c:if test="${not empty error}">
+        <script>
+          toastr.error("${error}");
+        </script>
+      </c:if>
     </main>
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
-    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"></script>
-
-    <script src="<c:url value='/js/script.js'/>"></script>
+    <%@ include file="/WEB-INF/views/layout/footer.jsp" %>
   </body>
 </html>

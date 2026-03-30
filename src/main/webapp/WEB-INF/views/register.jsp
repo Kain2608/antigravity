@@ -26,13 +26,13 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
           action="<c:url value='/admin/register'/>"
         >
           <div class="inner-group">
-            <label class="inner-label" for="fullName">Họ tên</label>
+            <label class="inner-label" for="fullName">Họ và tên</label>
             <input
               class="inner-control"
               type="text"
               name="fullName"
               id="fullName"
-              placeholder="Ví dụ: Lê Văn A"
+              placeholder="Ví dụ: Nguyễn Văn A"
               required
             />
           </div>

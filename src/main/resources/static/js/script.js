@@ -739,36 +739,7 @@ if (racketCreateForm) {
     });
 }
 
-//shoesCreateForm
-const shoesCreateForm = document.querySelector("#shoes-create-form");
-const validationShoes = new JustValidate("#shoes-create-form");
-validationShoes
-  .addField("#name", [
-    { rule: "required", errorMessage: "Vui lòng nhập tên giày!" },
-  ])
-  .addField("#size", [
-    { rule: "required", errorMessage: "Vui lòng nhập size!" },
-  ])
-  .addField("#target", [
-    { rule: "required", errorMessage: "Vui lòng chọn đối tượng!" },
-  ])
-  .addField("#price", [
-    { rule: "required", errorMessage: "Vui lòng nhập giá!" },
-  ])
-  .onSuccess((event) => {
-    event.preventDefault();
-    const name = event.target.name.value;
-    const size = event.target.size.value;
-    const target = event.target.target.value;
-    const price = event.target.price.value;
-    const description = tinymce.get("description").getContent();
-    const avatars = filePond.avatar.getFiles();
-    let avatar = null;
-    if (avatars.length > 0) avatar = avatars[0].file;
 
-    console.log({ name, size, target, price, description, avatar });
-    event.target.submit();
-  });
 
 function toggleMenu() {
   const menu = document.getElementById("createMenu");
@@ -780,3 +751,68 @@ document.addEventListener("click", function (e) {
     document.getElementById("createMenu").style.display = "none";
   }
 });
+// Filter-status
+const filterStatus = document.querySelector("[filter-status]");
+
+if (filterStatus) {
+  const url = new URL(window.location.href);
+  filterStatus.addEventListener("change", () => {
+    const value = filterStatus.value;
+    if (value) {
+      url.searchParams.set("status", value);
+    } else {
+      url.searchParams.delete("status");
+    }
+    window.location.href = url.href;
+  })
+  //Hiển thị lựa chọn mặc định
+  const valueCurrent = url.searchParams.get("status");
+  if (valueCurrent) {
+    filterStatus.value = valueCurrent;
+  }
+}
+//End Filter-status
+//Fileter-Create-By 
+const filterCreateBy = document.querySelector("[filter-create-by]");
+if (filterCreateBy) {
+  const url = new URL(window.location.href);
+  filterCreateBy.addEventListener("change", () => {
+    const value = filterCreateBy.value;
+    if (value) {
+      url.searchParams.set("createdBy", value);
+    } else {
+      url.searchParams.delete("createdBy");
+    }
+    window.location.href = url.href;
+  })
+  const valueCurrent = url.searchParams.get("createdBy");
+  if (valueCurrent) {
+    filterCreateBy.value = valueCurrent;
+  }
+}
+//End filterCreateBy
+//Reset 
+const btnReset = document.querySelector("[btn-reset]");
+
+if (btnReset) {
+  btnReset.addEventListener("click", () => {
+    const url = location.origin + location.pathname;
+    window.location.href = url;
+  });
+}
+//Page 
+const filterPage = document.querySelector("[filter-page]");
+if (filterPage) {
+  const url = new URL(window.location.href);
+  filterPage.addEventListener("change", () => {
+    const value = filterPage.value;
+    if (value)
+      url.searchParams.set("page", value);
+    else url.searchParams.delete("page");
+    window.location.href = url.href;
+  })
+  const valueCurrent = url.searchParams.get("page");
+  if (valueCurrent)
+    filterPage.value = valueCurrent;
+}
+//End Page
