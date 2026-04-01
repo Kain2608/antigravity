@@ -66,7 +66,7 @@
         <div class="rcard-header">
           <h3>Thông tin vai trò</h3>
           <button class="btn-delete-role" onclick="return confirm('Bạn có muốn xóa danh mục này không?')">
-            <i class="fa-solid fa-trash"></i>
+            <i class="fa-solid fa-trash"></i><a href="/admin/role/delete/${item.id}"></a>
           </button>
         </div>
         <div class="rcard-body">
