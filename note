@@ -1,0 +1,53 @@
+ <!-- Phần code cho trang quản lý người dùng -->
+ <!-- <div class="rcard" style="margin-top:20px;">
+        <div class="rcard-header">
+          <h3>Người dùng thuộc vai trò</h3>
+        </div>
+
+        <div class="rcard-body">
+          <table border="1" width="100%">
+            <tr>
+              <th>Tên</th>
+              <th>Email</th>
+              <th>Chức vụ</th>
+            </tr>
+
+            <tr>
+              <td>Nguyễn Văn A</td>
+              <td>a@gmail.com</td>
+              <td>Developer</td>
+            </tr>
+            <tr>
+              <td>Trần Văn B</td>
+              <td>b@gmail.com</td>
+              <td>Tester</td>
+            </tr>
+
+          </table>
+        </div>
+      </div> -->
+<!-- <div class="rcard" style="margin-top:20px;">
+        <div class="rcard-header">
+          <h3>Phân quyền</h3>
+        </div>
+
+        <div class="rcard-body">
+
+          <div class="perm-module">
+            <b>Quản lý User</b><br>
+            <label><input type="checkbox" checked> Xem</label>
+            <label><input type="checkbox" checked> Thêm</label>
+            <label><input type="checkbox"> Xoá</label>
+          </div>
+
+          <div class="perm-module">
+            <b>Quản lý Product</b><br>
+            <label><input type="checkbox" checked> Xem</label>
+            <label><input type="checkbox"> Thêm</label>
+            <label><input type="checkbox"> Xoá</label>
+          </div>
+
+        </div>
+      </div>
+     
+    </div> -->

@@ -1,6 +1,6 @@
-```jsp
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -23,60 +23,55 @@
     <span class="sep"><i class="fa-solid fa-chevron-right"></i></span>
     <span class="current">Thêm vai trò</span>
   </nav>
-  <div class="rcard" style="max-width: 600px; margin: 0 auto;">
+  <div class="rcard">                        
+  <div class="rcard-header">...</div>
+  <form action="/admin/role/create" method="post">
+    <div class="rcard-body">
 
-    <div class="rcard-header">
-      <div class="rcard-header-icon">
-        <i class="fa-solid fa-shield-halved"></i>
+      <div class="role-create-layout">        
+
+        <div class="role-create-main">        
+          <div class="field-group">
+            <label class="field-label">Tên vai trò *</label>
+            <div class="field-icon-wrap">
+              <i class="fa-solid fa-shield-halved field-icon"></i>
+              <input class="field-control" type="text" name="name"
+                     placeholder="VD: Admin,..." required>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">Mô tả</label>
+            <textarea class="field-control rc-textarea"
+                      name="description"
+                      placeholder="Mô tả vai trò..."></textarea>
+          </div>
+
+          <div class="field-group">
+            <h4 style="margin-bottom: 12px;">Phân quyền</h4>
+            <div class="perm-module perm-actions">
+              <c:forEach var="p" items="${permissions}">
+                <label class="perm-action-item">
+                  <input type="checkbox" name="permission" value="${p.code}"> ${p.name}
+                </label>
+              </c:forEach>
+            </div>
+          </div>
+        </div>
+
+        <div class="role-create-sidebar">     
+          <div class="rc-action-body">
+            <button type="submit" class="btn-primary rc-btn-full">
+              <i class="fa-solid fa-plus"></i> Tạo vai trò
+            </button>
+            <a href="/admin/role/list" class="btn-secondary rc-btn-full">Huỷ</a>
+          </div>
+        </div>
+
       </div>
-      <h3 class="rcard-header-title">Thêm vai trò mới</h3>
     </div>
-    <form action="/admin/role/create" method="post">
-      <div class="rcard-body">
-        <div class="field-group">
-          <label class="field-label">Tên vai trò *</label>
-          <div class="field-icon-wrap">
-            <i class="fa-solid fa-shield-halved field-icon"></i>
-            <input class="field-control" type="text"
-                   name="name"
-                   placeholder="VD: Admin, Editor..." required>
-          </div>
-        </div>
-        <div class="field-group" style="margin-top: 16px;">
-          <label class="field-label">Mô tả</label>
-          <textarea class="field-control"
-                    name="description"
-                    placeholder="Mô tả vai trò..."
-                    style="height:100px;"></textarea>
-        </div>
-        <div style="margin-top: 24px;">
-          <h4 style="margin-bottom: 10px;">Phân quyền</h4>
-          <div class="perm-module">
-            <b>Quản lý User</b><br>
-            <label><input type="checkbox" name="permissions" value="USER_VIEW"> Xem</label>
-            <label><input type="checkbox" name="permissions" value="USER_CREATE"> Thêm</label>
-            <label><input type="checkbox" name="permissions" value="USER_UPDATE"> Sửa</label>
-            <label><input type="checkbox" name="permissions" value="USER_DELETE"> Xoá</label>
-          </div>
-          <div class="perm-module" style="margin-top: 10px;">
-            <b>Quản lý Product</b><br>
-            <label><input type="checkbox" name="permissions" value="PRODUCT_VIEW"> Xem</label>
-            <label><input type="checkbox" name="permissions" value="PRODUCT_CREATE"> Thêm</label>
-            <label><input type="checkbox" name="permissions" value="PRODUCT_UPDATE"> Sửa</label>
-            <label><input type="checkbox" name="permissions" value="PRODUCT_DELETE"> Xoá</label>
-          </div>
-
-        </div>
-
-      </div>
-      <div class="rcard-footer" style="display:flex; gap:10px;">
-        <a href="/admin/role/list" class="btn-secondary">Huỷ</a>
-        <button type="submit" class="btn-primary">
-          <i class="fa-solid fa-plus"></i> Tạo vai trò
-        </button>
-      </div>
-    </form>
-  </div>
+  </form>
+</div>
 </main>
 
 <%@ include file="/WEB-INF/views/layout/footer.jsp" %>

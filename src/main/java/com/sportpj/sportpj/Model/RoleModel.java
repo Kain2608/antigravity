@@ -1,6 +1,5 @@
 package com.sportpj.sportpj.Model;
 
-import java.security.Permission;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -26,7 +25,7 @@ public class RoleModel {
     joinColumns=@JoinColumn(name="role_id"),
     inverseJoinColumns=@JoinColumn(name="permission_id")
   )
-  private List<Permission> permission;
+  private List<PermissionModel> permission;
   public Long getId() {
     return id;
   }
@@ -45,10 +44,10 @@ public class RoleModel {
   public void setDescription(String description) {
     this.description = description;
   }
-  public List<Permission> getPermission() {
+  public List<PermissionModel> getPermission() {
     return permission;
   }
-  public void setPermission(List<Permission> permission) {
+  public void setPermission(List<PermissionModel> permission) {
     this.permission = permission;
   }
   

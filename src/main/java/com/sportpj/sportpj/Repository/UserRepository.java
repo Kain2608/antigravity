@@ -10,4 +10,5 @@ import com.sportpj.sportpj.Model.UserModel;
 @Repository
 public interface  UserRepository extends JpaRepository<UserModel, Long>{
   UserModel findByEmail(String email);
+  long countByRole(String roleName);
 }

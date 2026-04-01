@@ -2606,7 +2606,14 @@ select.field-control {
   font-size: 13px; color: var(--color-primary);
   flex-shrink: 0;
 }
- 
+ .perm-module {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 18px 20px;
+  border: 0.5px solid #e2e8f0;
+  border-radius: 8px;
+}
 .perm-module-name {
   flex: 1;
   font-size: 13px;
@@ -2942,5 +2949,129 @@ textarea.field-control { padding-left: 16px; }
     grid-template-columns: 1fr;
   }
   .role-list { max-height: 260px; }
+}
+/* ── Role Create Layout ──────────────────────────────────── */
+.role-create-layout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 24px;
+  align-items: start;
+  max-width: 100%;
+}
+
+.role-create-main { display: flex; flex-direction: column; gap: 20px; }
+.role-create-sidebar { display: flex; flex-direction: column; gap: 20px; }
+
+/* ── Textarea trong form create ──────────────────────────── */
+.rc-textarea {
+  height: 120px !important;
+  padding: 14px 16px !important;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+/* ── Nút Chọn tất cả ─────────────────────────────────────── */
+.rc-select-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-primary);
+  background: #EEF3FF;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background .2s;
+  white-space: nowrap;
+}
+.rc-select-all:hover { background: #dde8ff; }
+
+/* ── Permission items — khoảng cách thoáng hơn ───────────── */
+.perm-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;          /* tăng từ 8px lên 10px */
+  padding: 18px 20px; /* tăng padding */
+}
+
+.perm-action-item {
+  padding: 8px 16px;  /* tăng padding bên trong */
+  gap: 8px;
+}
+
+/* ── Action sidebar ──────────────────────────────────────── */
+.rc-action-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rc-btn-full {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ── Summary list ────────────────────────────────────────── */
+.rc-summary-list {
+  list-style: none;
+  margin: 0;
+  padding: 8px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+.rc-summary-list::-webkit-scrollbar { width: 3px; }
+.rc-summary-list::-webkit-scrollbar-thumb { background: #ddd; }
+
+.rc-summary-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 30px 20px;
+  color: #B0B8CC;
+  font-size: 13px;
+  text-align: center;
+}
+.rc-summary-empty i { font-size: 24px; opacity: .5; }
+
+.rc-summary-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #1A1D23;
+}
+.rc-summary-item:hover { background: #F4F6FB; }
+.rc-summary-item i { font-size: 11px; color: var(--color-primary); flex-shrink: 0; }
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .role-create-layout {
+    grid-template-columns: 1fr;
+  }
+}
+.btn-delete-role {
+  margin-left: auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1.5px solid #FFCDD2;
+  background: #FFF5F5;
+  color: #E53935;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s, border-color .2s;
+}
+.btn-delete-role:hover {
+  background: #FFEBEE;
+  border-color: #E53935;
 }
 /* End Role */

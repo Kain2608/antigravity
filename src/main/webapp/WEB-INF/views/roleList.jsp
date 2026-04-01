@@ -38,7 +38,7 @@
         <div class="rcard-header">
           <div class="rcard-header-icon"><i class="fa-solid fa-shield-halved"></i></div>
           <h3>Danh sách vai trò</h3>
-          <span class="role-count-badge">2</span>
+          <span class="role-count-badge">${count}</span>
         </div>
 
         <div class="role-search-wrap">
@@ -47,89 +47,36 @@
         </div>
 
         <ul class="role-list">
+          <c:forEach  var="item" items="${roleList}">
           <li class="role-item active">
             <div class="role-item-icon"><i class="fa-solid fa-shield-halved"></i></div>
             <div class="role-item-info">
-              <span class="role-item-name">Admin</span>
-              <span class="role-item-count"><i class="fa-solid fa-users"></i> 5 người dùng</span>
+              <span class="role-item-name">${item.name}</span>
+              <span class="role-item-count"><i class="fa-solid fa-users"></i> ${countMap[item.name]} thành viên</span>
             </div>
           </li>
-
-          <li class="role-item">
-            <div class="role-item-icon"><i class="fa-solid fa-shield-halved"></i></div>
-            <div class="role-item-info">
-              <span class="role-item-name">User</span>
-              <span class="role-item-count"><i class="fa-solid fa-users"></i> 12 người dùng</span>
-            </div>
-          </li>
+          </c:forEach>
         </ul>
 
       </div>
     </div>
     <div class="role-detail-col">
       <div class="rcard">
+        <c:forEach  var="item" items="${roleList}">
         <div class="rcard-header">
           <h3>Thông tin vai trò</h3>
+          <button class="btn-delete-role" onclick="return confirm('Bạn có muốn xóa danh mục này không?')">
+            <i class="fa-solid fa-trash"></i>
+          </button>
         </div>
         <div class="rcard-body">
-          <p><b>Tên:</b> Admin</p>
-          <p><b>Số user:</b> 5</p>
-          <p><b>Mô tả:</b> Quản trị toàn hệ thống</p>
+          <p><b>Tên:</b> ${item.name}</p>
+          <p><b>Số user:</b> ${countMap[item.name]} thành viên</p>
+          <p><b>Mô tả:</b> ${item.description}</p>
         </div>
+        </c:forEach>
       </div>
-      <div class="rcard" style="margin-top:20px;">
-        <div class="rcard-header">
-          <h3>Phân quyền</h3>
-        </div>
-
-        <div class="rcard-body">
-
-          <div class="perm-module">
-            <b>Quản lý User</b><br>
-            <label><input type="checkbox" checked> Xem</label>
-            <label><input type="checkbox" checked> Thêm</label>
-            <label><input type="checkbox"> Xoá</label>
-          </div>
-
-          <div class="perm-module">
-            <b>Quản lý Product</b><br>
-            <label><input type="checkbox" checked> Xem</label>
-            <label><input type="checkbox"> Thêm</label>
-            <label><input type="checkbox"> Xoá</label>
-          </div>
-
-        </div>
-      </div>
-      <div class="rcard" style="margin-top:20px;">
-        <div class="rcard-header">
-          <h3>Người dùng thuộc vai trò</h3>
-        </div>
-
-        <div class="rcard-body">
-          <table border="1" width="100%">
-            <tr>
-              <th>Tên</th>
-              <th>Email</th>
-              <th>Chức vụ</th>
-            </tr>
-
-            <tr>
-              <td>Nguyễn Văn A</td>
-              <td>a@gmail.com</td>
-              <td>Developer</td>
-            </tr>
-            <tr>
-              <td>Trần Văn B</td>
-              <td>b@gmail.com</td>
-              <td>Tester</td>
-            </tr>
-
-          </table>
-        </div>
-      </div>
-
-    </div>
-
+      
   </div>
 
 </main>
