@@ -31,7 +31,9 @@
                 </div>
                 
                 <div class="nav-icons">
-                    <a href="#" class="icon-link"><i class="fas fa-user"></i></a>
+                    <span id="auth-container">
+                        <a href="/login" class="icon-link" id="userIcon"><i class="fas fa-user"></i></a>
+                    </span>
                     <a href="#" class="icon-link cart-icon" onclick="viewCart()">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="cart-count" id="cartCount">0</span>
@@ -192,5 +194,45 @@
 
     <!-- Script -->
     <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Kiểm tra LocalStorage xem token có tồn tại không
+            var token = localStorage.getItem('token');
+            var authContainer = document.getElementById('auth-container');
+            
+            if (token) {
+                // 2. Decode Payload JWT để lấy email hiển thị (Tùy chọn)
+                var userEmail = "Tài Khoản";
+                try {
+                    var payload = JSON.parse(atob(token.split('.')[1]));
+                    if(payload && payload.sub) {
+                        userEmail = payload.sub; // .sub là chuẩn lưu trữ subject (thường dùng email) trong claim jwt
+                    }
+                } catch(e) {}
+                
+                // 3. User đã đăng nhập -> Chuyển icon thành "Đã đăng nhập" và thêm nút Đăng Xuất
+                authContainer.innerHTML = `
+                    <div style="display: inline-flex; align-items: center; gap: 10px;">
+                        <a href="#" class="icon-link" title="`+userEmail+`">
+                            <i class="fas fa-user-check" style="color: green;"></i>
+                            <span style="font-size: 14px; margin-left: 5px;">` + userEmail.split('@')[0] + `</span>
+                        </a>
+                        <button onclick="logoutClient()" style="background: none; border: 1px solid #ff4757; color: #ff4757; padding: 4px 8px; cursor: pointer; border-radius: 4px; font-size: 13px;">Đăng xuất</button>
+                    </div>
+                `;
+            } else {
+                // Chưa đăng nhập -> Trả về giao diện Icon User chuyển hướng sang trang login
+                authContainer.innerHTML = `<a href="/login" class="icon-link"><i class="fas fa-user"></i></a>`;
+            }
+        });
+
+        // 4. Định nghĩa Hàm đăng xuất
+        function logoutClient() {
+            if(confirm("Bạn có chắc chắn muốn đăng xuất khỏi hệ thống?")) {
+                localStorage.removeItem('token');  // Xóa token khỏi client localStorage
+                window.location.href = '/api/auth/logout'; // Ép trình duyệt dọn dẹp Cookie HttpOnly
+            }
+        }
+    </script>
 </body>
 </html>
