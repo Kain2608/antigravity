@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cloudinary.Cloudinary;
 import com.sportpj.sportpj.Model.CategoryModel;
-import com.sportpj.sportpj.Model.UserModel;
+import com.sportpj.sportpj.Model.UserClient;
 import com.sportpj.sportpj.Repository.CategoryRepository;
 import com.sportpj.sportpj.Repository.UserRepository;
 import com.sportpj.sportpj.helpers.JwtHelper;
@@ -35,7 +35,7 @@ public class CategoryService {
     slug = slug.trim().replaceAll("\\s+", "-");
     return slug;
 }
-  public UserModel getCurrentUser(HttpServletRequest request){
+  public UserClient getCurrentUser(HttpServletRequest request){
     String email = jwtHelper.getEmail(request);
     if(email != null){
       return userRepository.findByEmail(email);
@@ -64,7 +64,7 @@ public class CategoryService {
         i++;
     }
     categoryModel.setSlug(slug);
-    UserModel user = getCurrentUser(request);
+    UserClient user = getCurrentUser(request);
     
     if(user != null){
       categoryModel.setCreatedBy(user.getFullName());
@@ -92,7 +92,7 @@ public class CategoryService {
           e.printStackTrace();
         }
       }
-      UserModel user = getCurrentUser(request);
+      UserClient user = getCurrentUser(request);
       if(user != null){
         old.setUpdatedBy(user.getFullName()); 
       }

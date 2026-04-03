@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sportpj.sportpj.Model.CategoryModel;
-import com.sportpj.sportpj.Model.UserModel;
+import com.sportpj.sportpj.Model.UserClient;
 import com.sportpj.sportpj.Repository.CategoryRepository;
 import com.sportpj.sportpj.Repository.UserRepository;
 import com.sportpj.sportpj.Service.CategoryService;
@@ -54,7 +54,7 @@ public class CategoryController {
     } else {
         categoryList = categoryRepository.findAll();
     }
-    List<UserModel> userList = userRepository.findAll();
+    List<UserClient> userList = userRepository.findAll();
     long totalCategory = categoryRepository.count();
     long totalActive = categoryRepository.countByStatus("active");
     long totalInActive = categoryRepository.countByStatus("inactive");

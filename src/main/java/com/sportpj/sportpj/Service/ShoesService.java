@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.sportpj.sportpj.Model.ShoesModel;
-import com.sportpj.sportpj.Model.UserModel;
+import com.sportpj.sportpj.Model.UserClient;
 import com.sportpj.sportpj.Repository.ShoesRepository;
 import com.sportpj.sportpj.Repository.UserRepository;
 import com.sportpj.sportpj.helpers.JwtHelper;
@@ -30,7 +30,7 @@ public class ShoesService {
     private Cloudinary cloudinary;
     @Autowired
     JwtHelper jwtHelper;
-    public UserModel getCurrentUser(HttpServletRequest request){
+    public UserClient getCurrentUser(HttpServletRequest request){
         String email = jwtHelper.getEmail(request);
         if(email != null){
             return userRepository.findByEmail(email);
@@ -61,7 +61,7 @@ public class ShoesService {
       if(shoes.getStatus() == null || shoes.getStatus().isBlank()){
           shoes.setStatus("active");
       }
-      UserModel user = getCurrentUser(request);
+      UserClient user = getCurrentUser(request);
       if(user != null){
           shoes.setCreatedBy(user.getFullName());
           shoes.setUpdatedBy(user.getFullName());

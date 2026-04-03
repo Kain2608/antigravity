@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.sportpj.sportpj.Model.BagModel;
-import com.sportpj.sportpj.Model.UserModel;
+import com.sportpj.sportpj.Model.UserClient;
 import com.sportpj.sportpj.Repository.BagRepository;
 import com.sportpj.sportpj.Repository.UserRepository;
 import com.sportpj.sportpj.helpers.JwtHelper;
@@ -30,7 +30,7 @@ public class BagService {
     private Cloudinary cloudinary;
     @Autowired
     JwtHelper jwtHelper;
-    public UserModel getCurrentUser(HttpServletRequest request){
+    public UserClient getCurrentUser(HttpServletRequest request){
         String email = jwtHelper.getEmail(request);
         if(email != null){
             return userRepository.findByEmail(email);
@@ -59,7 +59,7 @@ public class BagService {
           }
       }
       bag.setStatus("active");
-      UserModel user = getCurrentUser(request);
+      UserClient user = getCurrentUser(request);
       if(user != null){
           bag.setCreatedBy(user.getFullName());
           bag.setUpdatedBy(user.getFullName());

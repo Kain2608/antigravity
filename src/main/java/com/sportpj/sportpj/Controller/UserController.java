@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.sportpj.sportpj.Model.UserModel;
+import com.sportpj.sportpj.Model.UserClient;
 import com.sportpj.sportpj.Service.JwtAuthService;
 import com.sportpj.sportpj.Service.UserService;
 import com.sportpj.sportpj.annotation.RequirePermission;
@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping("/admin/register")
-    public String register(@ModelAttribute UserModel user,
+    public String register(@ModelAttribute UserClient user,
                            @RequestParam(required = false) Boolean agree,
                            RedirectAttributes redirect,
                            Model model) {
@@ -71,7 +71,7 @@ public class UserController {
             return "redirect:/admin/login";
         }
 
-        UserModel user = userService.findByEmail(email);
+        UserClient user = userService.findByEmail(email);
 
         List<String> permissions = userService.getPermissions(user.getId());
 

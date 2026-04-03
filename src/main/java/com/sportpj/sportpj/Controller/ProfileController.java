@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sportpj.sportpj.Model.UserModel;
+import com.sportpj.sportpj.Model.UserClient;
 import com.sportpj.sportpj.Service.ProfileService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,13 +35,13 @@ public class ProfileController {
   }
     @GetMapping("/profile")
   public String getProfilePage(HttpServletRequest request,Model model) {
-    UserModel userModel = profileService.getCurrentUser(request);
-    model.addAttribute("profile",userModel);
+    UserClient UserClient = profileService.getCurrentUser(request);
+    model.addAttribute("profile",UserClient);
     return "profile";
   }
   @PostMapping("/profile/edit")
-  public String postMethodName(Model model, @ModelAttribute UserModel userModel,HttpServletRequest request, MultipartFile avatarFile,RedirectAttributes redirect) {
-      userModel = profileService.updateProfile(userModel, request, avatarFile);
+  public String postMethodName(Model model, @ModelAttribute UserClient UserClient,HttpServletRequest request, MultipartFile avatarFile,RedirectAttributes redirect) {
+      UserClient = profileService.updateProfile(UserClient, request, avatarFile);
       redirect.addFlashAttribute("success", "Sửa thành công");
       return "redirect:/admin/profile";
   }

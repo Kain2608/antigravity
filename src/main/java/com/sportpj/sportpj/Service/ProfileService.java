@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cloudinary.Cloudinary;
-import com.sportpj.sportpj.Model.UserModel;
+import com.sportpj.sportpj.Model.UserClient;
 import com.sportpj.sportpj.Repository.UserRepository;
 import com.sportpj.sportpj.helpers.JwtHelper;
 
@@ -21,18 +21,18 @@ public class ProfileService {
   JwtHelper jwtHelper;
   @Autowired
   private Cloudinary cloudinary;
-  public UserModel getCurrentUser(HttpServletRequest request){
+  public UserClient getCurrentUser(HttpServletRequest request){
     String email = jwtHelper.getEmail(request);
       if(email != null){
         return userRepository.findByEmail(email);
       }
     return null;
   }
-  public UserModel updateProfile(UserModel userModel, HttpServletRequest request,MultipartFile avatarFile){
-    UserModel old = getCurrentUser(request);
-    old.setFullName(userModel.getFullName());
-    old.setPhone(userModel.getPhone());
-    old.setEmail(userModel.getEmail());
+  public UserClient updateProfile(UserClient UserClient, HttpServletRequest request,MultipartFile avatarFile){
+    UserClient old = getCurrentUser(request);
+    old.setFullName(UserClient.getFullName());
+    old.setPhone(UserClient.getPhone());
+    old.setEmail(UserClient.getEmail());
     if (avatarFile != null && !avatarFile.isEmpty()) {
       try {
         Map uploadResult = cloudinary.uploader().upload(
@@ -46,7 +46,7 @@ public class ProfileService {
         e.printStackTrace();
       }
     }
-    UserModel user = getCurrentUser(request);
+    UserClient user = getCurrentUser(request);
       if(user != null){
         old.setUpdatedBy(user.getFullName()); 
       }
