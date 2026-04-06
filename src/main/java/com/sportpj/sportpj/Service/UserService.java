@@ -1,8 +1,6 @@
 package com.sportpj.sportpj.Service;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import org.mindrot.jbcrypt.BCrypt;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +46,7 @@ public class UserService {
         if(user == null) return false;
         if(!"active".equals(user.getStatus())) return false;
 
-        return user.getPassword().equals(hashPassword(rawPassword));
+        return BCrypt.checkpw(rawPassword, user.getPassword());
     }
 
     public List<String> getPermissions(Long userId) {
@@ -69,28 +67,7 @@ public class UserService {
                 .toList();
     }
 
-    private static final String SALT = "SportPj@2026";
-
     private String hashPassword(String password) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-
-            String salted = password + SALT;
-
-            byte[] encoded = digest.digest(salted.getBytes(StandardCharsets.UTF_8));
-
-            StringBuilder hexString = new StringBuilder();
-
-            for (byte b : encoded) {
-                String hex = Integer.toHexString(0xff & b);
-                if(hex.length() == 1) hexString.append('0');
-                hexString.append(hex);
-            }
-
-            return hexString.toString();
-
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
+        return BCrypt.hashpw(password, BCrypt.gensalt(12));
     }
 }

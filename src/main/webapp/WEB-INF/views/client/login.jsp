@@ -30,11 +30,12 @@
                     <label class="inner-label" for="password">Mật khẩu</label>
                     <input class="inner-control" type="password" name="password" id="password" required />
                 </div>
-                <div class="inner-meta">
+                <div class="inner-meta" style="display: flex; justify-content: space-between; align-items: center;">
                     <div class="inner-confirm">
                         <input class="inner-check" type="checkbox" name="rememberPassword" id="remember-password" />
                         <label class="inner-label" for="remember-password">Nhớ mật khẩu</label>
                     </div>
+                    <a href="${pageContext.request.contextPath}/forgot-password" style="font-size: 14px; color: #007bff; text-decoration: none;">Quên mật khẩu?</a>
                 </div>
                 <button class="inner-button" type="submit">Đăng Nhập</button>
             </form>

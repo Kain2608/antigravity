@@ -20,3 +20,21 @@ spring:
   sql:
     init:
       mode: always
+      
+  # ========================================================
+  # EMAIL VERIFICATION SETUP (Must configure for OTP to work!)
+  # ========================================================
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    # 1. Put your REAL Gmail address below:
+    username: an2k5nha@gmail.com
+    # 2. Put your 16-character GOOGLE APP PASSWORD below (Do NOT use your normal login password):
+    # -> Get it here: https://myaccount.google.com/apppasswords
+    password: yrfbthyvnkurctiy
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
