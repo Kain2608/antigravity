@@ -28,10 +28,10 @@ spring:
     host: smtp.gmail.com
     port: 587
     # 1. Put your REAL Gmail address below:
-    username: an2k5nha@gmail.com
+    username: here
     # 2. Put your 16-character GOOGLE APP PASSWORD below (Do NOT use your normal login password):
     # -> Get it here: https://myaccount.google.com/apppasswords
-    password: yrfbthyvnkurctiy
+    password: here
     properties:
       mail:
         smtp:
